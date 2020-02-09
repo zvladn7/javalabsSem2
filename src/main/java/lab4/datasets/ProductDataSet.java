@@ -2,23 +2,23 @@ package lab4.datasets;
 
 public class ProductDataSet {
 
-    private long id;
-    private long prodId;
+    private int id;
+    private String prodId;
     private String title;
     private double cost;
 
-    public ProductDataSet(long id, long prodId, String title, double cost) {
+    public ProductDataSet(int id, String prodId, String title, double cost) {
         this.id = id;
         this.prodId = prodId;
         this.title = title;
         this.cost = cost;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public long getProdId() {
+    public String getProdId() {
         return prodId;
     }
 
