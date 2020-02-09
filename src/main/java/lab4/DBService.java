@@ -17,6 +17,7 @@ public class DBService implements AutoCloseable {
         this.out = out;
         connection = getConnection();
         productsDAO = new ProductsDAO(connection);
+        productsDAO.dropTable();
         productsDAO.createTable();
     }
 
@@ -32,7 +33,7 @@ public class DBService implements AutoCloseable {
                 break;
             }
             case "/show_all": {
-                productsDAO.getList().forEach(out::println);
+                productsDAO.getList().forEach(System.out::println);
                 break;
             }
             case "/price": {
@@ -55,9 +56,8 @@ public class DBService implements AutoCloseable {
 
     private static Connection getConnection() {
         try {
-            DriverManager.registerDriver((Driver) Class.forName("com.mysql.jdbc.Driver").newInstance());
-            return DriverManager.getConnection("jdbc:mysql://localhost:3006:forLab?user=tully&password=tully");
-
+            DriverManager.registerDriver((Driver) Class.forName("com.mysql.cj.jdbc.Driver").newInstance());
+            return DriverManager.getConnection("jdbc:mysql://localhost:3306/forLab?user=vlad&password=vlad&serverTimezone=UTC");
         } catch (SQLException | ClassNotFoundException | IllegalAccessException | InstantiationException e) {
             e.printStackTrace();
         }
