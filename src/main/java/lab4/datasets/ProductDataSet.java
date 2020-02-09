@@ -36,11 +36,11 @@ public class ProductDataSet {
         sb.append("Product:\n")
                 .append("id: ")
                 .append(id)
-                .append(",\nprodID: ")
+                .append(",prodID: ")
                 .append(prodId)
-                .append(",\nTitle: ")
+                .append(",title: ")
                 .append(title)
-                .append(",\nCost: ")
+                .append(",cost: ")
                 .append(cost)
                 .append("\n");
         return sb.toString();

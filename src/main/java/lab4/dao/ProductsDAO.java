@@ -37,7 +37,7 @@ public class ProductsDAO {
         executor.executeUpdate("DELETE FROM products WHERE title='" + title + "'");
     }
 
-    public void changeCost(String title, String newCost) {
+    public void changeCost(String title, double newCost) {
         executor.executeUpdate("UPDATE products SET cost='" + newCost + "' WHERE title='" + title + "'");
     }
 
