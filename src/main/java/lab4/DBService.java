@@ -1,16 +1,11 @@
 package lab4;
 
 import lab4.dao.ProductsDAO;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.HashMap;
 
 public class DBService implements AutoCloseable {
 
