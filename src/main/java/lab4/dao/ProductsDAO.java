@@ -30,7 +30,7 @@ public class ProductsDAO {
     public void add(String title, double cost) {
         String prodID = UUID.randomUUID().toString();
         executor.executeUpdate("INSERT INTO products (prodID, title, cost) values " +
-                "('" + prodID + "','" + title +  "', '" + cost +  " ')");
+                "('" + prodID + "','" + title +  "'," + cost +  " )");
     }
 
     public void remove(String title) {
@@ -53,7 +53,7 @@ public class ProductsDAO {
     }
 
     public List<ProductDataSet> getFilteredList(double begin, double end) {
-        return executor.executeQuery("SELECT * FROM produtcts WHERE cost>=" + begin + " and cost<=" + end, this::addToList);
+        return executor.executeQuery("SELECT * FROM products WHERE cost>=" + begin + " and cost<=" + end, this::addToList);
     }
 
     private List<ProductDataSet> addToList(ResultSet resultSet) throws SQLException {
