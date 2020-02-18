@@ -1,6 +1,6 @@
-package lab4;
+package main.java.lab4;
 
-import lab4.dao.ProductsDAO;
+import main.java.lab4.dao.ProductsDAO;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.Driver;

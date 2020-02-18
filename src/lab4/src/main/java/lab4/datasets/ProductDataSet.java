@@ -1,4 +1,4 @@
-package lab4.datasets;
+package main.java.lab4.datasets;
 
 public class ProductDataSet {
 

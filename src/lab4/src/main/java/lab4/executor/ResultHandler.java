@@ -1,4 +1,4 @@
-package lab4.executor;
+package main.java.lab4.executor;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

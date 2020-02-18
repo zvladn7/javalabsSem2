@@ -1,7 +1,7 @@
-package lab4.dao;
+package main.java.lab4.dao;
 
-import lab4.datasets.ProductDataSet;
-import lab4.executor.Executor;
+import main.java.lab4.datasets.ProductDataSet;
+import main.java.lab4.executor.Executor;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
