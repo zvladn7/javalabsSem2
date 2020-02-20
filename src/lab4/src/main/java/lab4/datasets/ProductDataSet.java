@@ -41,7 +41,8 @@ public class ProductDataSet {
                 .append(",title: ")
                 .append(title)
                 .append(",cost: ")
-                .append(cost);
+                .append(cost)
+                .append("\n");
         return sb.toString();
     }
 }

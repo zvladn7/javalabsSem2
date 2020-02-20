@@ -33,7 +33,7 @@ public class DBService implements AutoCloseable {
                 break;
             }
             case "/show_all": {
-                productsDAO.getList().forEach(out::println);
+                productsDAO.getList().forEach(System.out::println);
                 break;
             }
             case "/price": {
@@ -44,7 +44,7 @@ public class DBService implements AutoCloseable {
                 productsDAO.changeCost(splitedCommand[1], Double.parseDouble(splitedCommand[2]));
                 break;
             }
-            case "/filter_by_price": {
+            case "filter_by_price": {
                 productsDAO.getFilteredList(Double.parseDouble(splitedCommand[1]), Double.parseDouble(splitedCommand[2])).forEach(out::println);
                 break;
             }
