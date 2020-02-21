@@ -6,7 +6,6 @@ import executor.Executor;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -58,7 +57,7 @@ public class ProductsDAO {
     }
 
     public List<ProductDataSet> getFilteredList(double begin, double end) {
-        return executor.executeQuery("SELECT * FROM produtcts WHERE cost>=" + begin + " and cost<=" + end, this::addToList);
+        return executor.executeQuery("SELECT * FROM products WHERE cost>=" + begin + " and cost<=" + end, this::addToList);
     }
 
     private List<ProductDataSet> addToList(ResultSet resultSet) throws SQLException {
