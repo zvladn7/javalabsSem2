@@ -1,9 +1,6 @@
 import dao.ProductsDAO;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.Driver;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class DBService implements AutoCloseable {
 
@@ -23,7 +20,12 @@ public class DBService implements AutoCloseable {
         String[] splitedCommand = command.split(" ");
         switch (splitedCommand[0]) {
             case "/add": {
-                productsDAO.add(splitedCommand[1], Double.parseDouble(splitedCommand[2]));
+                if (!productsDAO.ifExist(splitedCommand[1])) {
+                    productsDAO.add(splitedCommand[1], Double.parseDouble(splitedCommand[2]));
+                } else { out.println("This product has been already added to the data base!\n" +
+                            "Please try to change the name or update the cost of this product by command" +
+                            "\"\\change_price 'product' 'new_price'\"");
+                }
                 break;
             }
             case "/delete": {

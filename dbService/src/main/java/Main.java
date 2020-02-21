@@ -10,6 +10,7 @@ public class Main {
                 String next;
                 while ((next = br.readLine()) != null) {
                     dbService.apply(next);
+                    out.flush();
                 }
             }
         } catch (Exception ex) {

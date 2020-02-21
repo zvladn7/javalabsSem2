@@ -6,6 +6,7 @@ import executor.Executor;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -20,7 +21,7 @@ public class ProductsDAO {
 
     public void createTable() {
         executor.executeUpdate("CREATE TABLE products (id INT AUTO_INCREMENT, prodID VARCHAR(60) NOT NULL, " +
-                "title VARCHAR(60) NOT NULL, cost DOUBLE NOT NULL, PRIMARY KEY (id))");
+                "title VARCHAR(60) NOT NULL UNIQUE, cost DOUBLE NOT NULL UNIQUE, PRIMARY KEY (id))");
     }
 
     public void dropTable() {
@@ -30,7 +31,7 @@ public class ProductsDAO {
     public void add(String title, double cost) {
         String prodID = UUID.randomUUID().toString();
         executor.executeUpdate("INSERT INTO products (prodID, title, cost) values " +
-                "('" + prodID + "','" + title +  "', " + cost +  ")");
+                    "('" + prodID + "','" + title + "', " + cost + ")");
     }
 
     public void remove(String title) {
@@ -50,6 +51,10 @@ public class ProductsDAO {
             resultSet.next();
             return resultSet.getDouble("cost");
         });
+    }
+
+    public boolean ifExist(String title) {
+        return executor.executeQuery("SELECT * FROM products where title='" + title + "'", ResultSet::next);
     }
 
     public List<ProductDataSet> getFilteredList(double begin, double end) {
