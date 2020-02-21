@@ -19,8 +19,8 @@ public class ProductsDAO {
     }
 
     public void createTable() {
-        executor.executeUpdate("CREATE TABLE products (id INT AUTO_INCREMENT, prodID VARCHAR(60) NOT NULL, " +
-                "title VARCHAR(60) NOT NULL UNIQUE, cost DOUBLE NOT NULL UNIQUE, PRIMARY KEY (id))");
+        executor.executeUpdate("CREATE TABLE products (id INT AUTO_INCREMENT, prodID VARCHAR(60) NOT NULL UNIQUE, " +
+                "title VARCHAR(60) NOT NULL UNIQUE, cost DOUBLE NOT NULL, PRIMARY KEY (id))");
     }
 
     public void dropTable() {
