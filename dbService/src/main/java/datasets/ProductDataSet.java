@@ -33,8 +33,7 @@ public class ProductDataSet {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Product:\n")
-                .append("id: ")
+        sb.append("id: ")
                 .append(id)
                 .append(",prodID: ")
                 .append(prodId)
