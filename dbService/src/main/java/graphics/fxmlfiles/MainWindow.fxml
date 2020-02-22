@@ -28,9 +28,9 @@
             <TableColumn prefWidth="110.0" text="Price" />
         </columns>
       </TableView>
-      <Button layoutX="577.0" layoutY="386.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="300.0" text="Add product" />
-      <TextField layoutX="118.0" layoutY="386.0" />
-      <TextField layoutX="356.0" layoutY="386.0" />
+      <Button fx:id="addButton" layoutX="577.0" layoutY="386.0" mnemonicParsing="false" onAction="#onAddButtonClick" prefHeight="26.0" prefWidth="300.0" text="Add product" />
+      <TextField fx:id="addTitle" layoutX="118.0" layoutY="386.0" />
+      <TextField fx:id="addPrice" layoutX="356.0" layoutY="386.0" />
       <Text fill="#b9aeae" layoutX="75.0" layoutY="406.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title">
          <font>
             <Font size="20.0" />
@@ -41,9 +41,9 @@
             <Font size="20.0" />
          </font>
       </Text>
-      <Button layoutX="577.0" layoutY="422.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="300.0" text="Change price" />
-      <TextField layoutX="118.0" layoutY="422.0" />
-      <TextField layoutX="356.0" layoutY="422.0" />
+      <Button fx:id="changePriceButton" layoutX="577.0" layoutY="422.0" mnemonicParsing="false" onAction="#onChangePriceButtonClick" prefHeight="26.0" prefWidth="300.0" text="Change price" />
+      <TextField fx:id="changeTitle" layoutX="118.0" layoutY="422.0" />
+      <TextField fx:id="changePrice" layoutX="356.0" layoutY="422.0" />
       <Text fill="#b9aeae" layoutX="75.0" layoutY="442.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title">
          <font>
             <Font size="20.0" />
@@ -54,29 +54,29 @@
             <Font size="20.0" />
          </font>
       </Text>
-      <Button layoutX="75.0" layoutY="515.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="216.0" text="Delete product" />
-      <TextField layoutX="118.0" layoutY="485.0" />
+      <Button fx:id="deleteButton" layoutX="75.0" layoutY="515.0" mnemonicParsing="false" onAction="#onDeleteButtonClick" prefHeight="26.0" prefWidth="216.0" text="Delete product" />
+      <TextField fx:id="deleteTitle" layoutX="118.0" layoutY="485.0" />
       <Text fill="#b9aeae" layoutX="75.0" layoutY="506.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title">
          <font>
             <Font size="20.0" />
          </font>
       </Text>
-      <TextField layoutX="356.0" layoutY="485.0" />
+      <TextField fx:id="showPriceTitle" layoutX="356.0" layoutY="485.0" />
       <Text fill="#b9aeae" layoutX="313.0" layoutY="506.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title">
          <font>
             <Font size="20.0" />
          </font>
       </Text>
-      <Button layoutX="313.0" layoutY="515.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="216.0" text="Show product's price" />
-      <Button layoutX="571.0" layoutY="159.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="300.0" text="Show all products" />
-      <Button layoutX="571.0" layoutY="233.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="300.0" text="Filter by price products" />
-      <TextField layoutX="568.0" layoutY="287.0" prefHeight="26.0" prefWidth="143.0" />
+      <Button fx:id="showPriceButton" layoutX="313.0" layoutY="515.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="216.0" text="Show product's price" />
+      <Button fx:id="showAllButton" layoutX="571.0" layoutY="159.0" mnemonicParsing="false" onAction="#onShowAllButtonClick" prefHeight="26.0" prefWidth="300.0" text="Show all products" />
+      <Button fx:id="FilterByPriceButton" layoutX="571.0" layoutY="233.0" mnemonicParsing="false" onAction="#FilterByPriceButtonClick" prefHeight="26.0" prefWidth="300.0" text="Filter by price products" />
+      <TextField fx:id="filterFromPrice" layoutX="568.0" layoutY="287.0" prefHeight="26.0" prefWidth="143.0" />
       <Text fill="#b9aeae" layoutX="615.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" text="From">
          <font>
             <Font size="20.0" />
          </font>
       </Text>
-      <TextField layoutX="731.0" layoutY="287.0" prefHeight="26.0" prefWidth="143.0" />
+      <TextField fx:id="filterToPrice" layoutX="731.0" layoutY="287.0" prefHeight="26.0" prefWidth="143.0" />
       <Text fill="#b9aeae" layoutX="790.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" text="To">
          <font>
             <Font size="20.0" />
