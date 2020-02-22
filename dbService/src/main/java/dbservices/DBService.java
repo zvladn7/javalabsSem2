@@ -1,7 +1,12 @@
+package dbservices;
+
 import dao.ProductsDAO;
+import datasets.ProductDataSet;
+
 import java.io.PrintWriter;
 import java.sql.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
@@ -36,7 +41,7 @@ public class DBService implements AutoCloseable {
                 out.println("You've sent smth instead of number. The the pattern of the command is '/add product price'");
             }
         } else {
-            out.println("This product has been already added to the data base!\n" +
+            out.println("This product has been already added to the data base! " +
                     "Please try to change the name or update the cost of this product by command" +
                     "\"\\change_price 'product' 'new_price'\"");
         }
@@ -55,24 +60,30 @@ public class DBService implements AutoCloseable {
         }
     }
 
-    private void showAll(String[] splitedCommand) {
+    public List<ProductDataSet> showAll(String[] splitedCommand) {
         if (splitedCommand.length == 1) {
-            productsDAO.getList().forEach(System.out::println);
+            List<ProductDataSet> list = productsDAO.getList();
+            list.forEach(System.out::println);
+            return list;
         } else {
             out.println(WRONG_ARGUMENT_MESSAGE);
+            return null;
         }
     }
 
-    private void showPrice(String[] splitedCommand) {
+    public double showPrice(String[] splitedCommand) {
         if (splitedCommand.length == 2) {
             if (productsDAO.ifExist(splitedCommand[1])) {
-                out.println(productsDAO.getCost(splitedCommand[1]));
+                double cost = productsDAO.getCost(splitedCommand[1]);
+                out.println(cost);
+                return cost;
             } else {
                 out.println("The product wasn't put in the data base!");
             }
         } else {
             out.println(WRONG_ARGUMENT_MESSAGE);
         }
+        return -1;
     }
 
     private void changeCost(String[] splitedCommand) {
@@ -92,10 +103,12 @@ public class DBService implements AutoCloseable {
         }
     }
 
-    private void filterByPrice(String[] splitedCommand) {
+    public List<ProductDataSet> filterByPrice(String[] splitedCommand) {
         if (splitedCommand.length == 3) {
             try {
-                productsDAO.getFilteredList(Double.parseDouble(splitedCommand[1]), Double.parseDouble(splitedCommand[2])).forEach(out::println);
+                List<ProductDataSet> list = productsDAO.getFilteredList(Double.parseDouble(splitedCommand[1]), Double.parseDouble(splitedCommand[2]));
+                list.forEach(out::println);
+                return list;
             } catch (NumberFormatException ex) {
                 out.println("You've sent smth instead of number. The the pattern of the command is '/filter_by_price from to'" +
                         "(all numbers inclusive!)");
@@ -103,6 +116,7 @@ public class DBService implements AutoCloseable {
         } else {
             out.println(WRONG_ARGUMENT_MESSAGE);
         }
+        return null;
     }
 
     public void apply(String command) {

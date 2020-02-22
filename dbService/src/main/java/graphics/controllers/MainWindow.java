@@ -1,19 +1,46 @@
 package graphics.controllers;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+
+import datasets.ProductDataSet;
+import dbservices.DBService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class MainWindow {
+
+    private DBService dbService;
 
     @FXML
     private ResourceBundle resources;
 
     @FXML
     private URL location;
+
+
+    @FXML
+    private TableView<ProductDataSet> productsTable;
+
+    @FXML
+    private TableColumn<ProductDataSet, Integer> columnID;
+
+    @FXML
+    private TableColumn<ProductDataSet, String> columnProductID;
+
+    @FXML
+    private TableColumn<ProductDataSet, String> columnTitle;
+
+    @FXML
+    private TableColumn<ProductDataSet, Double> columnPrice;
+
 
     @FXML
     private Button addButton;
@@ -59,50 +86,62 @@ public class MainWindow {
 
     @FXML
     void FilterByPriceButtonClick(ActionEvent event) {
-
+        productsTable.getItems().clear();
+        List<ProductDataSet> list = dbService.filterByPrice(new StringBuilder().append("filter_by_price ")
+                .append(filterFromPrice.getText()).append(" ").append(filterToPrice.getText()).toString().split(" "));
+        for (ProductDataSet pds : list) {
+            productsTable.getItems().add(pds);
+        }
     }
 
     @FXML
     void onAddButtonClick(ActionEvent event) {
-
+        dbService.apply("/add " + addTitle.getText() + " " + addPrice.getText());
+        addTitle.clear();
+        addPrice.clear();
     }
 
     @FXML
     void onChangePriceButtonClick(ActionEvent event) {
-
+        dbService.apply("/change_price " + changeTitle.getText() + " " +  changePrice.getText());
+        changePrice.clear();
+        changeTitle.clear();
     }
 
     @FXML
     void onDeleteButtonClick(ActionEvent event) {
-
+        dbService.apply("/delete " + deleteTitle.getText());
+        deleteTitle.clear();
     }
 
     @FXML
     void onShowAllButtonClick(ActionEvent event) {
-
+        productsTable.getItems().clear();
+        List<ProductDataSet> list = dbService.showAll(new String[1]);
+        for (ProductDataSet pds : list) {
+            productsTable.getItems().add(pds);
+        }
     }
 
     @FXML
     void onShowPriceButtonClick(ActionEvent event) {
-
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText(showPriceTitle.getText());
+        alert.setContentText("Price: " + dbService.showPrice(("/price " + showPriceTitle.getText()).split(" ")));
+        alert.showAndWait();
     }
 
     @FXML
     void initialize() {
-        assert addButton != null : "fx:id=\"addButton\" was not injected: check your FXML file 'MainWindow.fxml'.";
-        assert addTitle != null : "fx:id=\"addTitle\" was not injected: check your FXML file 'MainWindow.fxml'.";
-        assert addPrice != null : "fx:id=\"addPrice\" was not injected: check your FXML file 'MainWindow.fxml'.";
-        assert changePriceButton != null : "fx:id=\"changePriceButton\" was not injected: check your FXML file 'MainWindow.fxml'.";
-        assert changeTitle != null : "fx:id=\"changeTitle\" was not injected: check your FXML file 'MainWindow.fxml'.";
-        assert changePrice != null : "fx:id=\"changePrice\" was not injected: check your FXML file 'MainWindow.fxml'.";
-        assert deleteButton != null : "fx:id=\"deleteButton\" was not injected: check your FXML file 'MainWindow.fxml'.";
-        assert deleteTitle != null : "fx:id=\"deleteTitle\" was not injected: check your FXML file 'MainWindow.fxml'.";
-        assert showPriceTitle != null : "fx:id=\"showPriceTitle\" was not injected: check your FXML file 'MainWindow.fxml'.";
-        assert showPriceButton != null : "fx:id=\"showPriceButton\" was not injected: check your FXML file 'MainWindow.fxml'.";
-        assert showAllButton != null : "fx:id=\"showAllButton\" was not injected: check your FXML file 'MainWindow.fxml'.";
-        assert FilterByPriceButton != null : "fx:id=\"FilterByPriceButton\" was not injected: check your FXML file 'MainWindow.fxml'.";
-        assert filterFromPrice != null : "fx:id=\"filterFromPrice\" was not injected: check your FXML file 'MainWindow.fxml'.";
-        assert filterToPrice != null : "fx:id=\"filterToPrice\" was not injected: check your FXML file 'MainWindow.fxml'.";
-
+        columnID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        columnProductID.setCellValueFactory(new PropertyValueFactory<>("prodId"));
+        columnTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+        columnPrice.setCellValueFactory(new PropertyValueFactory<>("cost"));
+        try {
+            PrintWriter out = new PrintWriter(new FileWriter(new File("inoutFile.txt")));
+            dbService = new DBService(out);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

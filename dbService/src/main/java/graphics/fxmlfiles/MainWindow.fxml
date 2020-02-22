@@ -20,12 +20,12 @@
             </Text>
          </children>
       </AnchorPane>
-      <TableView layoutX="75.0" layoutY="159.0" prefHeight="200.0" prefWidth="452.0">
+      <TableView fx:id="productsTable" layoutX="75.0" layoutY="159.0" prefHeight="200.0" prefWidth="452.0">
         <columns>
-          <TableColumn prefWidth="29.0" text="id" />
-          <TableColumn prefWidth="241.0" text="product ID" />
-            <TableColumn prefWidth="71.0" text="Title" />
-            <TableColumn prefWidth="110.0" text="Price" />
+          <TableColumn fx:id="columnID" prefWidth="29.0" text="id" />
+          <TableColumn fx:id="columnProductID" prefWidth="241.0" text="product ID" />
+            <TableColumn fx:id="columnTitle" prefWidth="71.0" text="Title" />
+            <TableColumn fx:id="columnPrice" prefWidth="110.0" text="Price" />
         </columns>
       </TableView>
       <Button fx:id="addButton" layoutX="577.0" layoutY="386.0" mnemonicParsing="false" onAction="#onAddButtonClick" prefHeight="26.0" prefWidth="300.0" text="Add product" />
@@ -67,7 +67,7 @@
             <Font size="20.0" />
          </font>
       </Text>
-      <Button fx:id="showPriceButton" layoutX="313.0" layoutY="515.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="216.0" text="Show product's price" />
+      <Button fx:id="showPriceButton" layoutX="313.0" layoutY="515.0" mnemonicParsing="false" onAction="#onShowPriceButtonClick" prefHeight="26.0" prefWidth="216.0" text="Show product's price" />
       <Button fx:id="showAllButton" layoutX="571.0" layoutY="159.0" mnemonicParsing="false" onAction="#onShowAllButtonClick" prefHeight="26.0" prefWidth="300.0" text="Show all products" />
       <Button fx:id="FilterByPriceButton" layoutX="571.0" layoutY="233.0" mnemonicParsing="false" onAction="#FilterByPriceButtonClick" prefHeight="26.0" prefWidth="300.0" text="Filter by price products" />
       <TextField fx:id="filterFromPrice" layoutX="568.0" layoutY="287.0" prefHeight="26.0" prefWidth="143.0" />
