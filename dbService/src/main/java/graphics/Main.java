@@ -20,10 +20,11 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        Parent root = null;
         try {
-            Parent root = FXMLLoader.load(new File("java/graphics/fxmlfiles/MainWindow.fxml").toURL());
+            root = FXMLLoader.load(new File("src/main/java/graphics/fxmlfiles/MainWindow.fxml").toURL());
             primaryStage.setTitle("MainWindow");
-            primaryStage.setScene(new Scene(root, 700, 400));
+            primaryStage.setScene(new Scene(root, 900, 600));
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
