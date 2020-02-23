@@ -1,3 +1,5 @@
+package console;
+
 import dbservices.DBService;
 
 import java.io.BufferedReader;
@@ -6,16 +8,16 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 
 public class Main {
-    private static void generate(DBService dbService, int n) {
+    public static void generate(DBService dbService, int n) {
         StringBuilder sb = new StringBuilder();
         for (int i = 1; i <= n; ++i) {
-            sb.append("/add ").append("product").append(i).append(" ").append(i*10);
+            sb.append("/add ").append("product").append(i).append(" ").append(i*100);
             dbService.apply(sb.toString());
             sb.delete(0, sb.length());
         }
     }
 
-    private static int getNumberOfGeneratedProducts(final BufferedReader br, final PrintWriter out) throws IOException {
+    public static int getNumberOfGeneratedProducts(final BufferedReader br, final PrintWriter out) throws IOException {
         int n = 0;
         while (true) {
             try {

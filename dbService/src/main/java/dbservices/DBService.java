@@ -12,7 +12,12 @@ import java.util.function.Consumer;
 
 public class DBService implements AutoCloseable {
 
-    private static String WRONG_ARGUMENT_MESSAGE = "The number of arguments is more or less than it was expected!";
+    private static final String WRONG_ARGUMENT_MESSAGE = "The number of arguments is more or less than it was expected!";
+    public static final String WRONG_FORMAT_OF_NUMBER_MESSAGE = "You've sent smth instead of number.";
+    public static final String NO_PRODUCT_IN_DB_MESSAGE = "There is no product in the data base";
+    public static final String DELETE_UNEXISTING_PRODUCT_MESSAGE = NO_PRODUCT_IN_DB_MESSAGE + ", so it wasn't remove from it!";
+    public static final String ADD_EXISTING_PRODCUT_MESSAGE = "This product has been already added to the data base! ";
+
 
     private final Connection connection;
     private final ProductsDAO productsDAO;
@@ -37,14 +42,16 @@ public class DBService implements AutoCloseable {
         if (!productsDAO.ifExist(splitedCommand[1])) {
             try {
                 productsDAO.add(splitedCommand[1], Double.parseDouble(splitedCommand[2]));
+                out.println("The product was successfully added!");
             } catch (NumberFormatException ex) {
-                out.println("You've sent smth instead of number. The the pattern of the command is '/add product price'");
+                out.println(WRONG_FORMAT_OF_NUMBER_MESSAGE +  "The the pattern of the command is '/add product price'");
             }
         } else {
-            out.println("This product has been already added to the data base! " +
+            out.println(ADD_EXISTING_PRODCUT_MESSAGE +
                     "Please try to change the name or update the cost of this product by command" +
                     "\"\\change_price 'product' 'new_price'\"");
         }
+        out.flush();
     }
 
     private void delete(String[] splitedCommand) {
@@ -53,17 +60,19 @@ public class DBService implements AutoCloseable {
                 productsDAO.remove(splitedCommand[1]);
                 out.println("The product was removed from the data base successfully!");
             } else {
-                out.println("There is no product in the data base, so it wasn't remove from it!");
+                out.println(DELETE_UNEXISTING_PRODUCT_MESSAGE);
             }
         } else {
             out.println(WRONG_ARGUMENT_MESSAGE);
         }
+        out.flush();
     }
 
     public List<ProductDataSet> showAll(String[] splitedCommand) {
         if (splitedCommand.length == 1) {
             List<ProductDataSet> list = productsDAO.getList();
-            list.forEach(System.out::println);
+            list.forEach(out::println);
+            out.flush();
             return list;
         } else {
             out.println(WRONG_ARGUMENT_MESSAGE);
@@ -76,13 +85,15 @@ public class DBService implements AutoCloseable {
             if (productsDAO.ifExist(splitedCommand[1])) {
                 double cost = productsDAO.getCost(splitedCommand[1]);
                 out.println(cost);
+                out.flush();
                 return cost;
             } else {
-                out.println("The product wasn't put in the data base!");
+                out.println(NO_PRODUCT_IN_DB_MESSAGE);
             }
         } else {
             out.println(WRONG_ARGUMENT_MESSAGE);
         }
+        out.flush();
         return -1;
     }
 
@@ -93,14 +104,15 @@ public class DBService implements AutoCloseable {
                     productsDAO.changeCost(splitedCommand[1], Double.parseDouble(splitedCommand[2]));
                     out.println("The price of the product was successfully changed!");
                 } else {
-                    out.println("There is no product in the data base, so value wasn't changed!");
+                    out.println(NO_PRODUCT_IN_DB_MESSAGE);
                 }
             } catch (NumberFormatException ex) {
-                out.println("You've sent smth instead of number. The pattern of the command is '/change_price prodcut new_price'");
+                out.println(WRONG_FORMAT_OF_NUMBER_MESSAGE + " The pattern of the command is '/change_price prodcut new_price'");
             }
         } else {
             out.println(WRONG_ARGUMENT_MESSAGE);
         }
+        out.flush();
     }
 
     public List<ProductDataSet> filterByPrice(String[] splitedCommand) {
@@ -108,14 +120,16 @@ public class DBService implements AutoCloseable {
             try {
                 List<ProductDataSet> list = productsDAO.getFilteredList(Double.parseDouble(splitedCommand[1]), Double.parseDouble(splitedCommand[2]));
                 list.forEach(out::println);
+                out.flush();
                 return list;
             } catch (NumberFormatException ex) {
-                out.println("You've sent smth instead of number. The the pattern of the command is '/filter_by_price from to'" +
+                out.println(WRONG_FORMAT_OF_NUMBER_MESSAGE + " The the pattern of the command is '/filter_by_price from to'" +
                         "(all numbers inclusive!)");
             }
         } else {
             out.println(WRONG_ARGUMENT_MESSAGE);
         }
+        out.flush();
         return null;
     }
 
